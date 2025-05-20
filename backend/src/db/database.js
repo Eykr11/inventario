@@ -1,13 +1,16 @@
-import mysql from "promise-mysql";
+import mysql from 'mysql2/promise'; 
 import config from "./../config.js";
 
-const connection = mysql.createConnection ({
-    host : config.host,
+
+const connection = mysql.createPool({
+  host : config.host,
     database : config.database,
     user : config.user,
-    password : config.password
-
+    password : config.password,
+  connectionLimit: 10,
+  queueLimit: 0
 })
+
 
 const getConnection = () => {
    return connection
