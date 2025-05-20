@@ -41,20 +41,23 @@ const  getCategory = async (req, res)=>{
         console.error("ERROR 500")
     }
     }
-    const  deleteCategory = async (req, res)=>{
+    const deleteCategory = async (req, res) => {
         try {
-            console.log("id de la categoria a borrar ",req.params);
-            const {id} = req.params
+            const {id} = req.params;
             const connection = await getConnection();
-            const result = await connection.query("DELETE CategoriaID,CategoriaNombre ,Descripcion,Imagen FROM categorias WHERE CategoriaID = ?", id )
-            res.json(result);
-        }    
-         catch (error) {
-            console.error("ERROR 500")
+            const result = await connection.query("DELETE FROM categorias WHERE CategoriaID = ?", id);
+            
+            if(result.affectedRows === 0) {
+                return res.status(404).json({message: "Categoría no encontrada"});
+            }
+            
+            res.json({message: "Categoría eliminada exitosamente"});
+        } catch (error) {
+            res.status(500).json({message: "Error al eliminar categoría", error: error.message});
         }
-        }
+    }
 
-        const updatetCategorrias = async (req,res) =>{
+        const updatetCategorias = async (req,res) =>{
             try {
                 const {id} = req.params
                 const {CategoriaNombre, Descripcion, Imagen} = (req.body);
@@ -78,6 +81,6 @@ export const methodHTTP = {
     postCategorrias,
     getCategory,
     deleteCategory,
-    updatetCategorrias
+    updatetCategorias
     
 }

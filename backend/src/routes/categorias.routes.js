@@ -8,5 +8,5 @@ router.post("/", categoriaController.postCategorrias);
 router.get("/:id", categoriaController.getCategory);
 router.delete("/:id", categoriaController.deleteCategory);
 //ruta con parametro tanto el id como el cuerpo para actualizar
-router.put("/:id", categoriaController.updatetCategorrias);
+router.put("/:id", categoriaController.updatetCategorias);
 export default router;
