@@ -1,19 +1,17 @@
-import mysql from 'mysql2/promise'; 
-import config from "./../config.js";
+import mysql from "mysql2/promise";
 
+
+import config from "../config.js";
 
 const connection = mysql.createPool({
-  host : config.host,
-    database : config.database,
-    user : config.user,
-    password : config.password,
-  connectionLimit: 10,
-  queueLimit: 0
-})
-
+  host: config.host,
+  user: config.user,
+  password: config.password,
+  database: config.database,
+});
 
 const getConnection = () => {
-   return connection
-}
+  return connection;
+};
 
 export default getConnection;
